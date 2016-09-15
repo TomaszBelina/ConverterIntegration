@@ -14,14 +14,20 @@ public class ConverterApplication {
 
     public static void main(String[] args) throws Exception{
         Converter converter = new ConverterToXmlImpl();
-        File file = new File("C:\\Documents and Settings\\macx\\Pulpit\\ScalaCursera\\Converter\\src\\main\\resources\\inputDataCorrect.txt");
+        String path = "src\\main\\resources\\";
+        String input = getInput(path);
+        System.out.println(converter.convert(input));
+
+    }
+
+    private static String getInput(String path) throws Exception{
+        File file = new File(path+"inputDataCorrect.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         StringBuilder sb = new StringBuilder();
         String line = null;
         while((line = br.readLine()) != null){
             sb.append(line).append(System.getProperty("line.separator"));
         }
-        System.out.println(converter.convert(sb.toString()));
-
+        return sb.toString();
     }
 }

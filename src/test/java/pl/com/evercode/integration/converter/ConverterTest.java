@@ -23,7 +23,7 @@ public class ConverterTest {
 
     @BeforeClass
     public void configure() throws Exception{
-        String path = "";
+        String path = "src\\main\\resources\\";
         converter = new ConverterToXmlImpl();
         inputCorrect = getFileInput(path+"inputDataCorrect.txt");
         inputDataNoNamePerson = getFileInput(path+"inputDataNoNamePerson.txt");
@@ -32,11 +32,6 @@ public class ConverterTest {
         inputDataWrongStart = getFileInput(path+"inputDataWrongStart.txt");
     }
 
-    @Test
-    public void testConverterOutputCorrect() throws Exception{
-        String result = converter.convert(inputCorrect);
-        Assert.assertEquals(result, expectedOKOutput);
-    }
 
     @Test(expectedExceptions = ConverterException.class, expectedExceptionsMessageRegExp = "PERSON_MUST_HAVE_NAME_AND_SURNAME")
     public void testConvertedOutputNoNamePerson() throws Exception{
@@ -51,6 +46,12 @@ public class ConverterTest {
     @Test(expectedExceptions = ConverterException.class, expectedExceptionsMessageRegExp = "INPUT_MUST_START_WITH_PERSON_ELEMENT")
     public void testConvertedOutputWrongStart() throws Exception{
         converter.convert(inputDataWrongStart);
+    }
+
+    @Test
+    public void testConverterOutputCorrect() throws Exception{
+        String result = converter.convert(inputCorrect);
+        Assert.assertEquals(result, expectedOKOutput);
     }
 
 
