@@ -28,6 +28,8 @@ public class ConverterToXmlImpl implements Converter {
         marshaller = new JaxbMarshallerImpl();
     }
 
+    /* method converts input into xml. Method includes validation and flexibility allowing
+    * adding many person elements and within person, many family elements */
     public String convert(String input) throws ConverterException {
         List<InputRecordDTO> inputRecords = getInputRecords(input);
         validateInputRecords(inputRecords);
@@ -39,7 +41,7 @@ public class ConverterToXmlImpl implements Converter {
     private String getXmlOutput(People people) throws ConverterException{
         return marshaller.marshall(people);
     }
-
+    /* method prepares objects which can be converted into xml */
     private List<Person> getPeople(List<InputRecordDTO> inputRecords) throws ConverterException{
         List<Person> result = new LinkedList<Person>();
         PersonBuilder personBuilder = null;
@@ -125,6 +127,7 @@ public class ConverterToXmlImpl implements Converter {
         validator.validate(inputRecords);
     }
 
+    /* method prepares DTO objects representing the line from input */
     private List<InputRecordDTO> getInputRecords(String input) throws ConverterException{
         List<InputRecordDTO> result = new LinkedList<InputRecordDTO>();
         String[] records = input.split(System.getProperty("line.separator"));
